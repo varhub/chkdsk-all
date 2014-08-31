@@ -6,4 +6,4 @@ The computer will be shutdown after check finish. But can be aborted by pressing
 Only double click is required to execute it ;)
 
 Logically, only NTFS and FAT32 is supported.
-This scripts REQUIRES Windows 8 or upper. Otherwise, uncomment backward compatibility code.
+For Windows 8 and upper, it uses new chkdsk features /scan /perf /forceofflinefix /offlinescanandfix
