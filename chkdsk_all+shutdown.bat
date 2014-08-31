@@ -24,16 +24,18 @@ if '%errorlevel%' NEQ '0' (
     @echo on	
 :--------------------------------------
 
+
 :: WindowsVersionChecker (detect OS) <v.arribas.urjc@gmail.com (c) 2014 BSD-Clause 3>
 :--------------------------------------
 @ECHO off
-REM http://www.grimadmin.com/article.php/batchfile-easy-way-to-detect-os-version
-REM 6.3 -- Win 8.1
-REM 6.2 -- Win 8
-REM 6.1 -- Win 7
-REM 6.0 -- Win Vista
-REM 5.1 -- Win 2003
-REM 5.0 -- Win XP
+REM http://msdn.microsoft.com/en-us/library/windows/desktop/ms724832(v=vs.85).aspx
+REM 6.3 -- Win 8.1, Win Server 2012 R2
+REM 6.2 -- Win 8, Win Server 2012
+REM 6.1 -- Win 7, Win Server 2008 R2
+REM 6.0 -- Win Vista, Win Server 2008
+REM 5.2 -- Win Server 2003, Win Server 2003 R2, Win XP 64-Bit Edition
+REM 5.1 -- Win XP
+REM 5.0 -- Win 2000
 
 FOR /f "tokens=4,5,6 delims=[]. " %%a IN ('ver') DO (
 	SET WVer=%%a.%%b.%%c
@@ -42,6 +44,7 @@ FOR /f "tokens=4,5,6 delims=[]. " %%a IN ('ver') DO (
 	SET WRev=%%c
 )
 :--------------------------------------
+
 
 :: ScanDisk All <v.arribas.urjc@gmail.com (c) 2014 BSD-Clause 3>
 :--------------------------------------
@@ -81,6 +84,7 @@ for /f "skip=1 tokens=1,2 delims= " %%a in ('wmic logicaldisk get caption^,files
 	)
 )
 :--------------------------------------
+
 
 :: Power off routine <v.arribas.urjc@gmail.com (c) 2014 BSD-Clause 3>
 :--------------------------------------
