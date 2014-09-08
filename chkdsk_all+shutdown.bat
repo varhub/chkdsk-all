@@ -64,7 +64,7 @@ for /f "skip=1 tokens=1,2 delims= " %%a in ('wmic logicaldisk get caption^,files
 			chkdsk /scan /perf /forceofflinefix %%a
 		) else (
 			echo Set System Drive %%a as dirty to force boot-scandisk scan
-			fsutil dirty set C:
+			fsutil dirty set %%a
 		)
 	) else if "%%b" == "NTFS" (
 		echo Two-steps ScanDisk of %%b unit %%a
