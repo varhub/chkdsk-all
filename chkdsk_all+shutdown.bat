@@ -60,14 +60,16 @@ REM ^, -- ^ is the escape character for declarations  between '
 for /f "skip=1 tokens=1,2 delims= " %%a in ('wmic logicaldisk get caption^,filesystem') do (
 	if "%%a" == "%SYSTEM_DRIVE%" (
 		if %Win8% == 1 (
-			echo Read-Only ScanDisk of System Drive %%a
+			echo ### Read-Only ScanDisk of System Drive %%a
 			chkdsk /scan /perf /forceofflinefix %%a
+			echo ### Run System File Checker on System Drive %%a
+			sfc /scannow
 		) else (
-			echo Set System Drive %%a as dirty to force boot-scandisk scan
+			echo Set ### System Drive %%a as dirty to force boot-scandisk scan
 			fsutil dirty set %%a
 		)
 	) else if "%%b" == "NTFS" (
-		echo Two-steps ScanDisk of %%b unit %%a
+		echo ### Two-steps ScanDisk of %%b unit %%a
 		if %Win8% == 1 (
 			REM http://www.minasi.com/newsletters/nws1305.htm (chkdsk Win 8+ features)
 			chkdsk /scan /perf /forceofflinefix %%a
@@ -78,7 +80,7 @@ for /f "skip=1 tokens=1,2 delims= " %%a in ('wmic logicaldisk get caption^,files
 			chkdsk /F /X /R /B %%a
 		)
 	) else if "%%b" == "FAT32" (
-		echo Two-steps ScanDisk of %%b unit %%a
+		echo ### Two-steps ScanDisk of %%b unit %%a
 		chkdsk /F /X %%a
 		chkdsk /F /X /R %%a
 	)
