@@ -48,7 +48,7 @@ FOR /f "tokens=4,5,6 delims=[]. " %%a IN ('ver') DO (
 :--------------------------------------
 
 
-:: ScanDisk All <v.arribas.urjc@gmail.com (c) 2014 BSD-Clause 3>
+:: ScanDisk All <v.arribas.urjc@gmail.com (c) 2014-2015 BSD-Clause 3>
 :--------------------------------------
 @echo off
 REM The System Drive must be specially treated.
@@ -60,6 +60,8 @@ if %CHKDSK_NG% == 1 (echo Info chkdsk: new capabilities enabled)
 
 REM ^, -- ^ is the escape character for declarations  between '
 for /f "skip=1 tokens=1,2 delims= " %%a in ('wmic logicaldisk get caption^,filesystem') do (
+	echo.
+	echo ________________________________________
 	if "%%a" == "%SYSTEM_DRIVE%" (
 		if %CHKDSK_NG% == 1 (
 			echo ### Read-Only ScanDisk of System Drive %%a
