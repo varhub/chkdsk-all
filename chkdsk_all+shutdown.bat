@@ -48,6 +48,33 @@ FOR /f "tokens=4,5,6 delims=[]. " %%a IN ('ver') DO (
 :--------------------------------------
 
 
+:: ScanDisk All::PrintInfo <v.arribas.urjc@gmail.com> (c) 2015 BSD-Clause 3
+:--------------------------------------
+@echo off
+echo.
+echo == ScanDisk All ==
+echo   (C) 2014-2015 "<v.arribas.urjc@gmail.com>" BSD-Clause 3
+echo.
+echo   This program will run CHKDSK on all drives in an unattended manner.
+echo   CHKDSK will be done in a two-steps way for safer execution.
+echo   The computer will be shutdown after finishing, but can be aborted
+echo   by pressing enter.
+echo   Supports:
+echo     * NTFS
+echo     * FAT32
+echo     * New generation CKHDSK commands (/scan /perf ...)
+echo     * Special treatment of SYSTEM drive (C: as default).
+echo       - Includes "sfc /scannow" for check system files integrity.
+echo.
+echo   Notice that if you system drive is not C:, you MUST change the line:
+echo     SET SYSTEM_DRIVE=C:
+echo.
+echo   Press ANY KEY to continue...
+echo.
+pause>nul
+:--------------------------------------
+
+
 :: ScanDisk All <v.arribas.urjc@gmail.com (c) 2014-2015 BSD-Clause 3>
 :--------------------------------------
 @echo off
