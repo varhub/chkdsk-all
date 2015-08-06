@@ -28,7 +28,9 @@ if '%errorlevel%' NEQ '0' (
 :: WindowsVersionChecker (detect OS) <v.arribas.urjc@gmail.com (c) 2014 BSD-Clause 3>
 :--------------------------------------
 @ECHO off
-REM http://msdn.microsoft.com/en-us/library/windows/desktop/ms724832(v=vs.85).aspx
+REM https://msdn.microsoft.com/en-us/library/windows/desktop/ms724832.aspx
+REM 10.0 -- Win 10, Win Server 2016 TP2
+REM 6.4 -- Win 10 TP, Win Server 2016 TP1
 REM 6.3 -- Win 8.1, Win Server 2012 R2
 REM 6.2 -- Win 8, Win Server 2012
 REM 6.1 -- Win 7, Win Server 2008 R2
@@ -53,13 +55,13 @@ REM The System Drive must be specially treated.
 SET SYSTEM_DRIVE=C:
 
 REM check Win8+ capabilities (requires WindowsVersionChecker)
-set Win8=0
-if 6 LEQ %WMajor% if 2 LEQ %WMinor% (set Win8=1)
+if 62 LEQ %WMajor%%WMinor% (set CHKDSK_NG=1) else (set CHKDSK_NG=0)
+if %CHKDSK_NG% == 1 (echo Info chkdsk: new capabilities enabled)
 
 REM ^, -- ^ is the escape character for declarations  between '
 for /f "skip=1 tokens=1,2 delims= " %%a in ('wmic logicaldisk get caption^,filesystem') do (
 	if "%%a" == "%SYSTEM_DRIVE%" (
-		if %Win8% == 1 (
+		if %CHKDSK_NG% == 1 (
 			echo ### Read-Only ScanDisk of System Drive %%a
 			chkdsk /scan /perf /forceofflinefix %%a
 			echo ### Run System File Checker on System Drive %%a
@@ -70,7 +72,7 @@ for /f "skip=1 tokens=1,2 delims= " %%a in ('wmic logicaldisk get caption^,files
 		)
 	) else if "%%b" == "NTFS" (
 		echo ### Two-steps ScanDisk of %%b unit %%a
-		if %Win8% == 1 (
+		if %CHKDSK_NG% == 1 (
 			REM http://www.minasi.com/newsletters/nws1305.htm (chkdsk Win 8+ features)
 			chkdsk /scan /perf /forceofflinefix %%a
 			chkdsk /X /offlinescanandfix %%a
