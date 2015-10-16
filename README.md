@@ -1,9 +1,17 @@
-chkdsk-all
+ScanDisk All
 ==========
 
-Windows Batch that runs a ScanDisk of *all drives* in an unattended manner.
-The computer will be shutdown after check finish. But can be aborted by pressing enter.
-Only double click is required to execute it ;)
+This program will run CHKDSK on all drives in an unattended manner.
+CHKDSK will be done in a two-steps way for safer execution.
+The computer will be shutdown after finishing, but can be aborted
+by pressing enter.
 
-Logically, only NTFS and FAT32 is supported.
-For Windows 8 and upper, it uses new chkdsk features /scan /perf /forceofflinefix /offlinescanandfix
+Supports:
+ * NTFS 
+ * FAT32 
+ * New generation CKHDSK commands (/scan /perf ...) 
+ * Special treatment of SYSTEM drive (C: as default). 
+   - Includes "sfc /scannow" for check system files integrity. 
+
+Notice that if you system drive is not C:, you MUST change the line: 
+  `SET SYSTEM_DRIVE=C:`
