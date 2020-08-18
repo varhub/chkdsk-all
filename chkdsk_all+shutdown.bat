@@ -66,9 +66,6 @@ echo     * New generation CKHDSK commands (/scan /perf ...)
 echo     * Special treatment of SYSTEM drive (C: as default).
 echo       - Includes "sfc /scannow" for check system files integrity.
 echo.
-echo   Notice that if you system drive is not C:, you MUST change the line:
-echo     SET SYSTEM_DRIVE=C:
-echo.
 echo   Press ANY KEY to continue...
 echo.
 pause>nul
@@ -79,7 +76,7 @@ pause>nul
 :--------------------------------------
 @echo off
 REM The System Drive must be specially treated.
-SET SYSTEM_DRIVE=C:
+if "%systemdrive%" == "" (SET SYSTEM_DRIVE=C:) else (SET SYSTEM_DRIVE=%systemdrive%)
 
 REM check Win8+ capabilities (requires WindowsVersionChecker)
 if 62 LEQ %WMajor%%WMinor% (set CHKDSK_NG=1) else (set CHKDSK_NG=0)

@@ -12,6 +12,3 @@ Supports:
  * New generation CKHDSK commands (/scan /perf ...) 
  * Special treatment of SYSTEM drive (C: as default). 
    - Includes "sfc /scannow" for check system files integrity. 
-
-Notice that if you system drive is not C:, you MUST change the line: 
-  `SET SYSTEM_DRIVE=C:`
